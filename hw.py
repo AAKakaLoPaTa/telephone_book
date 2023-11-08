@@ -114,7 +114,7 @@ def read_txt(filename):
         return phone_book
 
 def write_txt(filename, phone_book, m = 'w'):
-    with open(file,m,encoding='utf-8') as phout:
+    with open(filename,m,encoding='utf-8') as phout:
         for i in range(len(phone_book)):
             s=''
             for v in phone_book[i].values():
