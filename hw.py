@@ -61,6 +61,9 @@ def delete_by_lastname(phone_book6,lastname):
             return phone_book6
     print(f"Контакт {lastname} не найден !")
 
+def copy_db(phone_book8, filenamenew1):
+    write_txt(filenamenew1,phone_book8, 'w+')
+    print(f"БД сохранена в файл {filenamenew1}")
 
 # _______________________________________________________________
 
@@ -71,14 +74,15 @@ def show_menu():
     '4. Удалить запись',
     '5. Найти абонента по номеру телефона',
     '6. Добавить абонента в справочник',
-    '7. Закончить работу', sep = '\n')
+    '7. Скопировать БД в другой файл',
+    '8. Закончить работу', sep = '\n')
     choice=int(input())
     return choice
 
 def work_with_phonebook():
     phone_book = read_txt(file)
     choice=show_menu()
-    while (choice!=7):
+    while (choice!=8):
         if choice==1:
             print_result(phone_book)
         elif choice==2:
@@ -96,6 +100,9 @@ def work_with_phonebook():
             find_by_number(phone_book,number)
         elif choice==6:
             phone_book=add_user(phone_book)
+        elif choice==7:
+            filenamenew=input('Имя нового файла (с расширением) ')
+            copy_db(phone_book, filenamenew)
         choice=show_menu()
 
 def read_txt(filename):
@@ -106,13 +113,14 @@ def read_txt(filename):
             phone_book.append(record)
         return phone_book
 
-def write_txt(filename, phone_book):
-    with open(file,'w',encoding='utf-8') as phout:
+def write_txt(filename, phone_book, m = 'w'):
+    with open(file,m,encoding='utf-8') as phout:
         for i in range(len(phone_book)):
             s=''
             for v in phone_book[i].values():
                 s+=v+','
             phout.write(f'{s[:-1]}')
+        return True
 
 
 work_with_phonebook()
